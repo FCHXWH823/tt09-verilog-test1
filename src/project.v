@@ -5,7 +5,7 @@
 
 `default_nettype none
 
-module kogge_stone_adder_4bit (input clk, input [3:0] a, input [3:0] b, output [3:0] sum, output carry_out);
+module tt_um_koggestone_adder4 (input clk, input [3:0] a, input [3:0] b, output [3:0] sum, output carry_out);
 
   wire [3:0] p; // Propagate
   wire [3:0] g; // Generate
