@@ -78,4 +78,5 @@ module tt_um_koggestone_adder4 (
 
   assign uo_out[3:0] = sum;
   assign uo_out[4] = carry_out; 
+  assign uo_out[7:5] = 3'b000;
 endmodule
