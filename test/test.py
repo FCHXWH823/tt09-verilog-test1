@@ -15,18 +15,20 @@ async def test_project(dut):
     cocotb.start_soon(clock.start())
 
     dut._log.info("Test project behavior")
+    for i in range(0, 1<<4):
+        for j in range(0, 1<<4):
+            # Set the input values you want to test
+            dut.a.value = i
+            dut.b.value = j
 
-    # Set the input values you want to test
-    dut.a.value = 13
-    dut.b.value = 10
+            # Wait for one clock cycle to see the output values
+            await ClockCycles(dut.clk, 10)
 
-    # Wait for one clock cycle to see the output values
-    await ClockCycles(dut.clk, 10)
+            # The following assersion is just an example of how to check the output values.
+            # Change it to match the actual expected output of your module:
+            dut._log.info(f"value of outputs are: {dut.sum.value} and {dut.carry_out.value}.")
+            assert dut.sum.value == (i+j)-((i+j)&(1<<4)) and dut.carry_out.value == ((i+j)&(1<<4))>>4 
 
-    # The following assersion is just an example of how to check the output values.
-    # Change it to match the actual expected output of your module:
-    dut._log.info(f"value of outputs are: {dut.sum.value} and {dut.carry_out.value}.")
-    assert dut.sum.value == 7 and dut.carry_out.value == 1 
+            # Keep testing the module by changing the input values, waiting for
+            # one or more clock cycles, and asserting the expected output values.
 
-    # Keep testing the module by changing the input values, waiting for
-    # one or more clock cycles, and asserting the expected output values.
